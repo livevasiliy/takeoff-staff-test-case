@@ -1,0 +1,56 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "name": "Vasiliy Pivovarov",
+      "email": "vasiliy@mail.com",
+      "password": "123456"
+    }
+  ],
+  "contacts": [
+    {
+      "id": 1,
+      "firstName": "Misha",
+      "lastName": "Pichaikin",
+      "company": "LLC A",
+      "position": "Mechanic",
+      "email": "misha@mail.ru",
+      "phone": "+79880748422",
+      "notes": "",
+      "userId": 1
+    },
+    {
+      "firstName": "Сергей",
+      "lastName": "Пивоваров",
+      "company": "Адмиралтейские верфи",
+      "position": "Судосборщик",
+      "email": "sergey.pivovarov62@gmail.com",
+      "phone": "89678256800",
+      "notes": "тестовая",
+      "userId": "1",
+      "id": 2
+    },
+    {
+      "firstName": "sadsadsad",
+      "lastName": "sadsadsad",
+      "company": "sadsadsa",
+      "position": "dsadsad",
+      "email": "asdasds@mail.com",
+      "phone": "+74214214421",
+      "notes": "adasdasd",
+      "userId": "1",
+      "id": 3
+    },
+    {
+      "firstName": "assadsadsadfvdsjdjksajd",
+      "lastName": "sjdkfdjsfkldsjflkj",
+      "company": "jsdfljdsklfjdskl",
+      "position": "dsajlfkjdslfkdjsflk",
+      "email": "sadsladjaslk@mail.com",
+      "phone": "+79887484124",
+      "notes": "sadsadasdsa",
+      "userId": "1",
+      "id": 4
+    }
+  ]
+}
