@@ -77,7 +77,15 @@
 
   export default {
     name: 'Contacts',
-    components: { AddContactButton, Navbar, DeleteContact, Loader, EditContact, CreateContact, Notification },
+    components: {
+      CreateContact,
+      EditContact,
+      DeleteContact,
+      AddContactButton,
+      Navbar,
+      Loader,
+      Notification
+    },
     mounted () {
       this.$store.dispatch('fetchContacts')
     },
