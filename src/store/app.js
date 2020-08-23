@@ -22,7 +22,6 @@ export default {
     clearSearch (state) {
       state.search = ''
     },
-
   },
   actions: {
     setMessage({ commit }, payload) {
