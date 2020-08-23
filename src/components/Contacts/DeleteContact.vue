@@ -9,7 +9,7 @@
                 text
                 @click="$emit('toggle-delete-mode', false)"
         >{{ $t('cancel') }}</v-btn>
-        <v-btn color="primary darken-1" text @click="deleteContact">{{ $t('delete') }}</v-btn>
+        <v-btn color="red darken-1" text @click="deleteContact">{{ $t('delete') }}</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -31,6 +31,7 @@
     methods: {
       deleteContact() {
         this.$store.dispatch('deleteContact', this.contact.id)
+        this.$emit('toggle-delete-mode', false)
       }
     }
   }

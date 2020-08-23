@@ -4,7 +4,7 @@ export default {
   },
   mutations: {
     createContact (state, payload) {
-      state.contacts.concat(payload)
+      state.contacts.push(payload)
       localStorage.setItem('contacts', JSON.stringify(state.contacts))
     },
     updateContact (state, payload) {
@@ -17,13 +17,10 @@ export default {
       state.contacts = payload
       localStorage.setItem('contacts', JSON.stringify(state.contacts))
     },
-    filterContacts(state, payload) {
-      state.contacts.filter(c => c.includes(payload))
-    },
   },
   actions: {
-    createContact ({ commit }, payload) {
-      axios.post('/users/1/contacts', {
+    async createContact ({ commit, getters }, payload) {
+      await axios.post(`/users/${getters.user.id}/contacts`, {
         ...payload,
       }).then((response) => {
         commit('setMessage', {
@@ -36,17 +33,20 @@ export default {
           type: 'error',
           text: 'Контакт не был добавлен',
         })
+        throw error
       })
     },
-    updateContact ({ commit }, payload) {
-      axios.patch(`/users/1/contacts/${payload.id}`, {
+    async updateContact ({ commit, getters }, payload) {
+      await axios
+      .patch(`/contacts/${payload.id}`, {
         ...payload,
       }).then(() => {
         commit('setMessage', {
           type: 'success',
           text: 'Контакт успешно обновился',
         })
-        axios.get('/users/1/contacts').then((response) => {
+        axios.get(`/users/${getters.user.id}/contacts`)
+        .then((response) => {
           localStorage.setItem('contacts', JSON.stringify(response.data))
           commit('updateContact', response.data)
         })
@@ -55,25 +55,29 @@ export default {
           type: 'error',
           text: 'Произошла ошибка при обновление',
         })
+        throw error
       })
     },
-    deleteContact ({ commit }, payload) {
-      axios.delete(`/users/1/contacts/${payload}`).then(() => {
-        const contacts = state.contacts.filter(c => c.id !== payload)
+    async deleteContact ({ commit, getters }, payload) {
+      await axios.delete(`/contacts/${payload}`)
+      .then(() => {
+        const contacts = getters.contacts.filter(c => c.id !== payload)
         commit('deleteContact', contacts)
         commit('setMessage', {
           type: 'success',
           text: 'Контакт успешно удален',
         })
-      }).catch(() => {
+      }).catch((error) => {
         commit('setMessage', {
-          type: 'success',
+          type: 'error',
           text: 'Произошла ошибка при удаление',
         })
+        throw error
       })
     },
-    fetchContacts ({ commit }) {
-      axios.get('/users/1/contacts').then((response) => {
+    async fetchContacts ({ commit, getters }) {
+      await axios.get(`/users/${getters.user.id}/contacts`)
+      .then((response) => {
         commit('fetchContacts', response.data)
         commit('setMessage', {
           type: 'success',
@@ -81,12 +85,16 @@ export default {
         })
         setTimeout(() => {
           commit('clearMessage')
-        }, 5000)
+        }, 2000)
       })
-    },
-    filterContacts({commit}) {
-      commit('filterContacts')
-    },
+        .catch((error) => {
+        commit('setMessage', {
+          type: 'error',
+          text: 'Произошла ошибка при получение списка контактов',
+        })
+        throw error
+      })
+    }
   },
   getters: {
     contacts: s => s.contacts,

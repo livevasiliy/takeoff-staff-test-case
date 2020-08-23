@@ -94,6 +94,8 @@
                 </v-btn>
                 <v-btn
                         text
+                        :disabled="this.$v.$invalid"
+                        class="success--text"
                         @click="submit"
                 >{{ $t('create') }}
                 </v-btn>
