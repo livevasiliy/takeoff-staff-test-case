@@ -1,21 +1,20 @@
 <template>
-  <v-alert :type="type" v-if="text.length > 0">
-    {{ text }}
+  <v-alert :type="message.type" v-if="message.text.length > 0">
+    {{ message.text }}
+  </v-alert>
+
+  <v-alert type="warning" v-else-if="this.$route.query.loginError === 'true'">
+    Для просмотра этой страницы, нужно сначала авторизоваться
   </v-alert>
 </template>
 
 <script>
+  import { mapGetters } from 'vuex'
+
   export default {
     name: 'Notification',
-    props: {
-      type: {
-        type: String,
-        required: true
-      },
-      text: {
-        type: String,
-        required: true
-      }
+    computed: {
+      ...mapGetters(['message'])
     }
   }
 </script>

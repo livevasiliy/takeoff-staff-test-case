@@ -162,7 +162,7 @@
         }
         this.$store.dispatch('createContact', contact)
         this.clearForm()
-        this.create = false
+        this.$emit('toggle-add-mode',false)
       },
       clearForm () {
         {

@@ -11,8 +11,17 @@ export default new Vuex.Store({
       type: '',
       text: '',
     },
+    search: ''
   },
   mutations: {
+    login (state, payload) {
+      state.user = payload
+      localStorage.setItem('user', JSON.stringify(payload))
+    },
+    logout(state) {
+      state.user = null
+      localStorage.removeItem('user')
+    },
     createContact (state, payload) {
       state.contacts.concat(payload)
       localStorage.setItem('contacts', JSON.stringify(state.contacts))
@@ -36,8 +45,27 @@ export default new Vuex.Store({
         text: '',
       }
     },
+    filterContacts(state, payload) {
+      state.contacts.filter(c => c.includes(payload))
+    },
+    setSearch (state, payload) {
+      state.search = payload
+    },
+    clearSearch (state) {
+      state.search = ''
+    }
   },
   actions: {
+    login ({ commit }, payload) {
+      commit('login', payload)
+    },
+    logout({ commit }) {
+      commit('logout')
+      commit('setMessage', {
+        type: 'success',
+        text: 'Вы успешно покинули аккаунт',
+      })
+    },
     createContact ({ commit }, payload) {
       axios.post('/users/1/contacts', {
         ...payload,
@@ -100,11 +128,27 @@ export default new Vuex.Store({
         }, 5000)
       })
     },
+    setMessage({ commit }, payload) {
+      commit('setMessage', payload)
+    },
+    clearMessage({ commit }) {
+      commit('clearMessage')
+    },
+    filterContacts({commit}) {
+      commit('filterContacts')
+    },
+    setSearch({ commit }, payload) {
+      commit('setSearch', payload)
+    },
+    clearSearch({ commit }) {
+      commit('clearSearch')
+    }
   },
   getters: {
     user: s => s.user,
     contacts: s => s.contacts,
     contact: s => id => s.contacts.find(c => c.id === id),
     message: s => s.message,
+    search: s => s.search
   },
 })

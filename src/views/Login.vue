@@ -14,6 +14,7 @@
                             sm="8"
                             md="4"
                     >
+                        <Notification />
                         <v-card class="elevation-12">
                             <v-toolbar
                                     color="primary"
@@ -66,9 +67,11 @@
 <script>
   import {validationMixin} from 'vuelidate'
   import {required, maxLength, minLength, email} from 'vuelidate/lib/validators'
+  import Notification from '../components/Shared/Notification'
   export default {
     name: "Login",
-    mixins: [validationMixin],
+      components: { Notification },
+      mixins: [validationMixin],
     validations: {
       email: {required, email},
       password: {required, minLength: minLength(6), maxLength: maxLength(10)},

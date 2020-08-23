@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import AuthGuard from './auth-guard'
 
 Vue.use(VueRouter)
 
@@ -18,6 +19,7 @@ const routes = [
     path: '/contacts',
     name: 'Contacts',
     component: () => import(/* webpackChunkName: "contacts" */ '../views/Contacts.vue'),
+    beforeEnter: AuthGuard
   },
 ]
 

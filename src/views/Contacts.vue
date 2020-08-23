@@ -1,9 +1,9 @@
 <template>
   <v-app id="inspire">
-    <Navbar />
-    <v-main>
-      <Notification :type="message.type" :text="message.text" />
-      <Loader v-if="contacts.length < 0" />
+    <Navbar/>
+    <v-content>
+      <Notification/>
+      <Loader v-if="contacts.length < 0"/>
       <v-simple-table fixed-header v-else>
         <template v-slot:default>
           <thead>
@@ -17,8 +17,18 @@
           </tr>
           </thead>
           <tbody>
-          <tr v-for="item in contacts" :key="item.id">
-            <td>{{ `${item.firstName} ${item.lastName}` }}</td>
+          <tr
+                  v-for="item in filterableContacts"
+                  :key="item.id"
+          >
+            <td>
+              <v-avatar :color="colors[Math.floor(Math.random() * colors.length)]" size="36" class="mr-2">
+                <span class="white--text">
+                  {{ `${item.firstName.substring(0, 1).toUpperCase()} ${item.lastName.substring(0, 1).toUpperCase()}` }}
+                </span>
+              </v-avatar>
+              {{ `${item.firstName} ${item.lastName}` }}
+            </td>
             <td>{{ item.email }}</td>
             <td>{{ item.phone }}</td>
             <td>{{ item.position }}</td>
@@ -35,11 +45,11 @@
           </tbody>
         </template>
       </v-simple-table>
-    </v-main>
+    </v-content>
 
-    <AddContactButton @toggle-add-mode="toggleAddMode($event)" />
+    <AddContactButton @toggle-add-mode="toggleAddMode($event)"/>
 
-    <CreateContact :create="addMode" @toggle-add-mode="toggleAddMode($event)" />
+    <CreateContact :create="addMode" @toggle-add-mode="toggleAddMode($event)"/>
 
     <EditContact
             :edit="editMode"
@@ -67,7 +77,7 @@
 
   export default {
     name: 'Contacts',
-    components: { AddContactButton, Navbar, DeleteContact, Loader,EditContact, CreateContact, Notification },
+    components: { AddContactButton, Navbar, DeleteContact, Loader, EditContact, CreateContact, Notification },
     mounted () {
       this.$store.dispatch('fetchContacts')
     },
@@ -75,30 +85,45 @@
       contact: null,
       addMode: false,
       editMode: false,
-      deleteMode: false
+      deleteMode: false,
+      colors: [
+        'red',
+        'teal',
+        'primary',
+        'yellow',
+      ],
     }),
     computed: {
-      ...mapGetters(['contacts', 'message']),
+      ...mapGetters(['contacts', 'message', 'search']),
+      filterableContacts () {
+        return this.contacts.filter(c => {
+          return (c.firstName.toLowerCase().indexOf(this.search.toLowerCase()) > -1) ||
+            (c.lastName.toLowerCase().indexOf(this.search.toLowerCase()) > -1) ||
+            (c.phone.toLowerCase().indexOf(this.search.toLowerCase()) > -1) ||
+            (c.email.toLowerCase().indexOf(this.search.toLowerCase()) > -1) ||
+            (c.position.toLowerCase().indexOf(this.search.toLowerCase()) > -1) ||
+            (c.company.toLowerCase().indexOf(this.search.toLowerCase()) > -1)
+        })
+      },
     },
     methods: {
-      editContact(id) {
+      editContact (id) {
         this.editMode = !this.editMode
         this.contact = this.$store.getters.contact(id)
       },
-      deleteContact(id) {
+      deleteContact (id) {
         this.deleteMode = !this.deleteMode
         this.contact = this.$store.getters.contact(id)
       },
-      toggleAddMode(e) {
-        const addMode = e
-        this.addMode = addMode
+      toggleAddMode (e) {
+        this.addMode = e
       },
-      toggleEditMode(e) {
+      toggleEditMode (e) {
         this.editMode = e
       },
-      toggleDeleteMode(e) {
+      toggleDeleteMode (e) {
         this.deleteMode = e
-      }
-    }
+      },
+    },
   }
 </script>

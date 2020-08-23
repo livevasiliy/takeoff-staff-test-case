@@ -11,25 +11,50 @@
     >
       <span class="hidden-sm-and-down">Contacts</span>
     </v-toolbar-title>
-    <Search />
+    <Search
+            placeholder="Введите название контакта"
+            :search="search"
+            @input="setSearch($event)"
+    />
     <v-spacer></v-spacer>
     <v-btn
             icon
             large
+            v-if="user !== null"
+            @click="logout()"
     >
-      <v-btn icon>
         <v-icon>mdi-exit-to-app</v-icon>
-      </v-btn>
     </v-btn>
+    <router-link
+            tag="v-btn"
+            to="/login"
+            exact
+            icon
+            large
+            v-else
+    >
+      <v-icon>mdi-login</v-icon>
+    </router-link>
   </v-app-bar>
 </template>
 
 <script>
   import Search from '@/components/Shared/Search'
+  import { mapActions, mapGetters } from 'vuex'
   export default {
     name: 'Navbar',
     components: {
       Search
+    },
+    computed: {
+      ...mapGetters(['user', 'search']),
+    },
+    methods: {
+      ...mapActions(['setSearch']),
+      logout() {
+        this.$store.dispatch('logout')
+        this.$router.push('/login')
+      }
     }
   }
 </script>
