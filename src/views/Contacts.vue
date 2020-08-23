@@ -1,7 +1,7 @@
 <template>
   <v-app id="inspire">
     <Navbar/>
-    <v-content>
+    <v-main>
       <Notification/>
       <Loader v-if="contacts.length < 0"/>
       <v-simple-table fixed-header v-else>
@@ -45,7 +45,7 @@
           </tbody>
         </template>
       </v-simple-table>
-    </v-content>
+    </v-main>
 
     <AddContactButton @toggle-add-mode="toggleAddMode($event)"/>
 
