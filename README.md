@@ -54,3 +54,7 @@ $ npm run build # или $ yarn build
 >/contacts - получение списка всех контактов <br/>
 >/users/id - получение пользователя по ID <br/>
 >/users/id/contacts - получение списка всех контактов у конкретного пользователя <br/>
+
+#### Тестовый аккаунт
+> login: vasiliy@mail.com <br/>
+> password: 123456
