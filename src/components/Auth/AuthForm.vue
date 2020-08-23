@@ -76,7 +76,7 @@
         if (user.length > 0) {
           if (user[0].password === this.$v.password.$model) {
             await this.$store.dispatch('login', user[0])
-            await this.$router.push('/contacts')
+            await this.$router.push('/')
           } else {
             await this.$store.dispatch(
               'setMessage',

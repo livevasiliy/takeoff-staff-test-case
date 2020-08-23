@@ -7,19 +7,14 @@ Vue.use(VueRouter)
 const routes = [
   {
     path: '/',
-    name: 'Home',
-    component: () => import(/* webpackChunkName: "home" */ '../views/Home.vue'),
+    name: 'Contacts',
+    component: () => import(/* webpackChunkName: "contacts" */ '../views/Contacts.vue'),
+    beforeEnter: AuthGuard
   },
   {
     path: '/login',
     name: 'Login',
     component: () => import(/* webpackChunkName: "login" */ '../views/Login.vue'),
-  },
-  {
-    path: '/contacts',
-    name: 'Contacts',
-    component: () => import(/* webpackChunkName: "contacts" */ '../views/Contacts.vue'),
-    beforeEnter: AuthGuard
   },
 ]
 
