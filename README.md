@@ -1,19 +1,56 @@
-# takeoff-staff-test-case
+# Тестовое задание для компании Takeoff Staff
 
-## Project setup
-```
-yarn install
+#### Тестовое задание: 
+
+Напишите приложение личного кабинета.
+
+В приложении должно быть две страницы - страница входа и страница со списком контактов.
+
+Для реализации авторизации можно использовать запросы с моковыми данными.
+https://github.com/typicode/json-server
+
+Страница контактов пользователя должна быть доступна только после авторизации
+
+На странице контактов должна быть возможность добавлять/удалять/редактировать контакты, также желательно наличие функции поиска.
+
+Оформление и данные для заполнения страниц на ваше усмотрение.
+
+Обязательно добавьте информацию в readme о том, как запускать ваше приложение!
+
+В разработке можно пользоваться UI фреймворками.
+
+
+## Начало работы
+
+Для начало работы убедитесь, что у вас установлен Node.js & npm (по желанию yarn)
+
+В терминале наберите следующие команды:
+```bash
+$ node -v
+$ npm -v 
+$ yarn -v # если установка будет производиться, через yarn
 ```
 
-### Compiles and hot-reloads for development
-```
-yarn serve
+Если консоле показывают версии, наберите следующие команды: 
+
+``` bash
+# установка зависимостей
+$ npm install # или $ yarn install
+
+# serve with hot reload at http://localhost:8080 - dev версия проекта 
+$ npm run dev # или $ yarn dev
+# в другой консоли запустите 
+$ npm run json-server # или $ yarn json-server - для запуска mock REST API 
+mock REST API будет доступен на http://localhost:3000
+
+
+# build for production and launch server - prod версия проекта
+$ npm run build # или $ yarn build 
 ```
 
-### Compiles and minifies for production
-```
-yarn build
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+##### Mock REST API
+#### Base API URL: http://localhost:3000
+>/users - получение списка всех пользователей <br/>
+>/contacts - получение списка всех контактов <br/>
+>/users/id - получение пользователя по ID <br/>
+>/users/id/contacts - получение списка всех контактов у конкретного пользователя <br/>
