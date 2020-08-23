@@ -17,12 +17,9 @@
           </tr>
           </thead>
           <tbody>
-          <tr
-                  v-for="item in filterableContacts"
-                  :key="item.id"
-          >
+          <tr v-for="item in filterableContacts" :key="item.id">
             <td>
-              <v-avatar :color="colors[Math.floor(Math.random() * colors.length)]" size="36" class="mr-2">
+              <v-avatar color="teal" size="36" class="mr-2">
                 <span class="white--text">
                   {{ `${item.firstName.substring(0, 1).toUpperCase()} ${item.lastName.substring(0, 1).toUpperCase()}` }}
                 </span>
@@ -34,13 +31,23 @@
             <td>{{ item.position }}</td>
             <td>{{ item.company }}</td>
             <td>
-              <v-btn icon @click="editContact(item.id)">
+              <v-btn icon @click="toggleEditMode(true)">
                 <v-icon>mdi-pencil</v-icon>
               </v-btn>
-              <v-btn icon @click="deleteContact(item.id)">
+              <v-btn icon @click="toggleDeleteMode(true)">
                 <v-icon>mdi-trash-can-outline</v-icon>
               </v-btn>
             </td>
+            <EditContact
+                    :edit="editMode"
+                    :contact="item"
+                    @toggle-edit-mode="toggleEditMode($event)"
+            />
+            <DeleteContact
+                    :deleteMode="deleteMode"
+                    :contact="item"
+                    @toggle-delete-mode="toggleDeleteMode($event)"
+            />
           </tr>
           </tbody>
         </template>
@@ -51,17 +58,6 @@
 
     <CreateContact :create="addMode" @toggle-add-mode="toggleAddMode($event)"/>
 
-    <EditContact
-            :edit="editMode"
-            :contact="contact"
-            @toggle-edit-mode="toggleEditMode($event)"
-    />
-
-    <DeleteContact
-            :deleteMode="deleteMode"
-            :contact="contact"
-            @toggle-delete-mode="toggleDeleteMode($event)"
-    />
   </v-app>
 </template>
 
@@ -90,39 +86,32 @@
       this.$store.dispatch('fetchContacts')
     },
     data: () => ({
-      contact: null,
+      contact: {
+        firstName: '',
+        lastName: '',
+        company: '',
+        position: '',
+        email: '',
+        phone: '',
+        notes: '',
+      },
       addMode: false,
       editMode: false,
       deleteMode: false,
-      colors: [
-        'red',
-        'teal',
-        'primary',
-        'yellow',
-      ],
     }),
     computed: {
       ...mapGetters(['contacts', 'message', 'search']),
       filterableContacts () {
-        return this.contacts.filter(c => {
-          return (c.firstName.toLowerCase().indexOf(this.search.toLowerCase()) > -1) ||
-            (c.lastName.toLowerCase().indexOf(this.search.toLowerCase()) > -1) ||
-            (c.phone.toLowerCase().indexOf(this.search.toLowerCase()) > -1) ||
-            (c.email.toLowerCase().indexOf(this.search.toLowerCase()) > -1) ||
-            (c.position.toLowerCase().indexOf(this.search.toLowerCase()) > -1) ||
-            (c.company.toLowerCase().indexOf(this.search.toLowerCase()) > -1)
-        })
+        return this.contacts
+        .filter(item => Object.keys(item)
+          .some(key => item[key]
+          .toString()
+          .toLowerCase()
+          .includes(this.search.toLowerCase()))
+        )
       },
     },
     methods: {
-      editContact (id) {
-        this.editMode = !this.editMode
-        this.contact = this.$store.getters.contact(id)
-      },
-      deleteContact (id) {
-        this.deleteMode = !this.deleteMode
-        this.contact = this.$store.getters.contact(id)
-      },
       toggleAddMode (e) {
         this.addMode = e
       },

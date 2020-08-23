@@ -9,10 +9,10 @@
             style="width: 300px"
             class="ml-0 pl-4"
     >
-      <span class="hidden-sm-and-down">Contacts</span>
+      <span class="hidden-sm-and-down">Vue Contacts</span>
     </v-toolbar-title>
     <Search
-            placeholder="Введите название контакта"
+            :placeholder="$t('searchPlaceholder')"
             :search="search"
             @input="setSearch($event)"
     />

@@ -10,6 +10,10 @@ Vue.use(VueI18n)
 
 const messages = {
   en: {
+    authFormTitle: 'Login form',
+    account: "Login",
+    password: "Password",
+    signin: 'Sign in',
     firstName: 'First Name',
     lastName: 'Last name',
     company: 'Company',
@@ -26,8 +30,13 @@ const messages = {
     save: 'Save',
     update: 'Update',
     delete: 'Delete',
+    searchPlaceholder: "Enter name contact"
   },
   ru: {
+    authFormTitle: 'Авторизация',
+    account: "Аккаунт",
+    password: "Пароль",
+    signin: 'Войти',
     firstName: 'Имя',
     lastName: 'Фамилия',
     company: 'Компания',
@@ -44,6 +53,7 @@ const messages = {
     save: 'Сохранить',
     update: 'Обновить',
     delete: 'Удалить',
+    searchPlaceholder: "Введите название контакта"
   },
 }
 

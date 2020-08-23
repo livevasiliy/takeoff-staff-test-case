@@ -42,26 +42,15 @@
       "id": 3
     },
     {
-      "firstName": "assadsadsadfvdsjdjksajd",
-      "lastName": "sjdkfdjsfkldsjflkj",
+      "firstName": "asdsadsadsa",
+      "lastName": "dassada",
       "company": "jsdfljdsklfjdskl",
       "position": "dsajlfkjdslfkdjsflk",
       "email": "sadsladjaslk@mail.com",
-      "phone": "+79887484124",
+      "phone": "+79884242112",
       "notes": "sadsadasdsa",
       "userId": "1",
       "id": 4
-    },
-    {
-      "firstName": "sdfdsfdsfdsf",
-      "lastName": "sdfsdfds",
-      "company": "fdsfdsfds",
-      "position": "fdsfdsf",
-      "email": "dsfdsfdsfsdf@mail.com",
-      "phone": "+79888748787",
-      "notes": "sdfdsfdsfdsfs",
-      "userId": "1",
-      "id": 5
     }
   ]
 }

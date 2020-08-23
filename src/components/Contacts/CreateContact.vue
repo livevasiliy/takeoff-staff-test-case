@@ -107,9 +107,8 @@
 <script>
   import { validationMixin } from 'vuelidate'
   import { required, email } from 'vuelidate/lib/validators'
+  import phone from '@/utils/phoneRule'
 
-  const phone = (value) => RegExp(
-    '^(\\+7|7|8)?[\\s\\-]?\\(?[489][0-9]{2}\\)?[\\s\\-]?[0-9]{3}[\\s\\-]?[0-9]{2}[\\s\\-]?[0-9]{2}$').test(value)
   export default {
     name: 'CreateContact',
     mixins: [validationMixin],
@@ -132,7 +131,6 @@
       email: '',
       phone: '',
       notes: '',
-      userId: 1,
     }),
     computed: {
       emailErrors () {
@@ -160,7 +158,7 @@
           email: this.$v.email.$model,
           phone: this.$v.phone.$model,
           notes: this.notes,
-          userId: 1,
+          userId: this.$store.getters.user.id,
         }
         this.$store.dispatch('createContact', contact)
         this.clearForm()
@@ -175,7 +173,6 @@
           this.email = ''
           this.phone = ''
           this.notes = ''
-          this.userId = 1
         }
       },
     },
