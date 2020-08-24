@@ -40,7 +40,7 @@ $ npm install # или $ yarn install
 # serve with hot reload at http://localhost:8080 - dev версия проекта 
 $ npm run dev # или $ yarn dev
 # в другой консоли запустите 
-$ npm run json-server # или $ yarn json-server - для запуска mock REST API 
+$ npm run mock # или $ yarn mock - для запуска mock REST API 
 mock REST API будет доступен на http://localhost:3000
 
 
